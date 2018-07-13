@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
 router.post("/signup", async (req, res, next) => {
   const { username, password } = req.body;
   const user = new User({ username, bio: "some bio" });
-  user.setPassword(password);
+  user.setHashedPassword(password);
   try {
     await user.save();
     res.json({ user });
@@ -36,7 +36,7 @@ router.post("/signin", async (req, res) => {
     res.status(401).json({ message: "no such user found" });
   }
 
-  if (user.validPassword(password)) {
+  if (user.validatePassword(password)) {
     const userId = { id: user.id, anything: "whatever" };
     const token = jwt.sign(userId, jwtOptions.secretOrKey);
     res.json({ message: "ok", token: token });

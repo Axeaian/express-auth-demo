@@ -22,13 +22,13 @@ const UserSchema = new mongoose.Schema(
 UserSchema.plugin(uniqueValidator, { message: "should be unique" });
 
 // use ES5 function to prevent `this` from becoming undefined
-UserSchema.methods.setPassword = function(password) {
+UserSchema.methods.setHashedPassword = function(password) {
   this.salt = generateSalt();
   this.hash = hashPassword(password, this.salt);
 };
 
 // use ES5 function to prevent `this` from becoming undefined
-UserSchema.methods.validPassword = function(password) {
+UserSchema.methods.validatePassword = function(password) {
   return this.hash === hashPassword(password, this.salt);
 };
 
