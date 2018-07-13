@@ -37,9 +37,10 @@ const generateSalt = () => {
 };
 
 const hashPassword = (password, salt) => {
-  return crypto
+  const hash = crypto
     .pbkdf2Sync(password, salt, 10000, 512, "sha512")
     .toString("hex");
+  return hash;
 };
 
 const User = mongoose.model("User", UserSchema);

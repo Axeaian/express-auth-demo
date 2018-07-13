@@ -10,16 +10,16 @@ const jwtOptions = {
   secretOrKey: "some_secret"
 };
 
-const jwtStrategy = new JwtStrategy(jwtOptions, async (jwt_payload, done) => {
-  console.log("payload received", jwt_payload);
-
+const verify = async (jwt_payload, done) => {
   const user = await User.findOne({ _id: jwt_payload.id });
   if (user) {
     done(null, user);
   } else {
     done(null, false);
   }
-});
+};
+
+const jwtStrategy = new JwtStrategy(jwtOptions, verify);
 
 passport.use(jwtStrategy);
 

@@ -30,14 +30,14 @@ router.get("/users", async (req, res, next) => {
 router.post("/signin", async (req, res) => {
   const { username, password } = req.body;
 
-  const user = await User.findOne({ username: username });
+  const user = await User.findOne({ username });
 
   if (!user) {
     res.status(401).json({ message: "no such user found" });
   }
 
   if (user.validPassword(password)) {
-    const userId = { id: user.id };
+    const userId = { id: user.id, anything: "whatever" };
     const token = jwt.sign(userId, jwtOptions.secretOrKey);
     res.json({ message: "ok", token: token });
   } else {
