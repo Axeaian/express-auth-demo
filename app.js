@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const express = require("express");
 const { passport } = require("./config/passport");
+const { authenticateUser } = require("./middlewares/auth");
 const morgan = require("morgan");
 const indexRouter = require("./routes/indexRouter");
 const secretsRouter = require("./routes/secretsRouter");
@@ -13,11 +14,7 @@ app.use(express.json());
 app.use(passport.initialize());
 
 app.use("/", indexRouter);
-app.use(
-  "/secret",
-  passport.authenticate("jwt", { session: false }),
-  secretsRouter
-);
+app.use("/secret", authenticateUser, secretsRouter);
 
 app.use(handle404);
 app.use(handle500);
