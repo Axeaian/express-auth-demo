@@ -32,15 +32,26 @@ UserSchema.methods.validatePassword = function(password) {
   return this.hash === hashPassword(password, this.salt);
 };
 
+UserSchema.methods.withoutSecrets = function() {
+  const { username, bio } = this;
+  return {
+    username,
+    bio
+  };
+};
 const generateSalt = () => {
   return crypto.randomBytes(16).toString("hex");
 };
 
 const hashPassword = (password, salt) => {
-  const hash = crypto
-    .pbkdf2Sync(password, salt, 10000, 512, "sha512")
-    .toString("hex");
-  return hash;
+  try {
+    const hash = crypto
+      .pbkdf2Sync(password, salt, 10000, 512, "sha512")
+      .toString("hex");
+    return hash;
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 const User = mongoose.model("User", UserSchema);

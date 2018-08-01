@@ -15,15 +15,10 @@ router.post("/signup", async (req, res, next) => {
   user.setHashedPassword(password);
   try {
     await user.save();
-    res.json({ user });
+    res.json({ user: user.withoutSecrets() });
   } catch (err) {
     next(err);
   }
-});
-
-router.get("/users", async (req, res, next) => {
-  const users = await User.find();
-  res.json(users);
 });
 
 router.post("/signin", async (req, res) => {
