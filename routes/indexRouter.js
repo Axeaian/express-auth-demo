@@ -33,7 +33,11 @@ router.post("/signin", async (req, res) => {
   if (user.validatePassword(password)) {
     const userId = { id: user.id, anything: "whatever" };
     const token = jwt.sign(userId, jwtOptions.secretOrKey);
-    res.json({ message: "ok", token: token });
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      secure: false
+    });
+    res.json({ message: "ok" });
   } else {
     res.status(401).json({ message: "passwords did not match" });
   }

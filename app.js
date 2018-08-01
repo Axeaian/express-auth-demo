@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const { passport } = require("./config/passport");
 const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const indexRouter = require("./routes/indexRouter");
 const secretsRouter = require("./routes/secretsRouter");
@@ -16,6 +17,7 @@ var corsOptions = {
 const app = express();
 app.use(cors(corsOptions));
 app.use(morgan("dev"));
+app.use(cookieParser());
 app.use(express.json());
 app.use(passport.initialize());
 
