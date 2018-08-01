@@ -2,7 +2,7 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 const { jwtOptions } = require("../config/passport");
-
+const { COOKIE_SECURE_OPTION } = require("../config/utils");
 const router = express.Router();
 
 router.get("/", (req, res) => {
@@ -35,7 +35,7 @@ router.post("/signin", async (req, res) => {
     const token = jwt.sign(userId, jwtOptions.secretOrKey);
     res.cookie("jwt", token, {
       httpOnly: true,
-      secure: false
+      secure: COOKIE_SECURE_OPTION
     });
     res.json({ message: "ok" });
   } else {
