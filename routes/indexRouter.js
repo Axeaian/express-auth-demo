@@ -6,7 +6,6 @@ const { jwtOptions } = require("../config/passport");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  console.log(req.user);
   res.json({ message: "Express is up!" });
 });
 
