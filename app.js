@@ -8,7 +8,6 @@ const cors = require("cors");
 const indexRouter = require("./routes/indexRouter");
 const secretsRouter = require("./routes/secretsRouter");
 const { handle404, handle500 } = require("./middlewares/error_handlers");
-const { COOKIE_SECURE_OPTION } = require("./config/utils");
 
 var corsOptions = {
   origin: [/http:\/\/localhost:.*/, /http[s]*:\/\/.*\.herokuapp.com/],

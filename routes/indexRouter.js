@@ -31,7 +31,7 @@ router.post("/signin", async (req, res) => {
   }
 
   if (user.validatePassword(password)) {
-    const userId = { id: user.id, anything: "whatever" };
+    const userId = { id: user.id };
     const token = jwt.sign(userId, jwtOptions.secretOrKey);
     res.cookie("jwt", token, {
       httpOnly: true,
