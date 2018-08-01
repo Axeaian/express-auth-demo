@@ -14,7 +14,7 @@ app.use(express.json());
 app.use(passport.initialize());
 
 app.use("/", indexRouter);
-app.use("/secret", authenticateUser, secretsRouter);
+  "/secret",
 
 app.use(handle404);
 app.use(handle500);
