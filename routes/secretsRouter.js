@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
-  res.json({ message: "Success! You can not see this without a token" });
+  const username = req.user.username;
+  res.json({ message: `Success! ${username}, you are on a protected page` });
 });
 
 module.exports = router;
