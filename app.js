@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
-const { passport } = require("./config/passport");
+const { passport } = require("./middlewares/passport");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");

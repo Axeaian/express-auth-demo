@@ -32,6 +32,5 @@ const jwtStrategy = new JwtStrategy(jwtOptions, verify);
 passport.use(jwtStrategy);
 
 module.exports = {
-  passport,
-  jwtOptions
+  passport
 };
